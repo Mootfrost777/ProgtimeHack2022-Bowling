@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "yTdbtSHNacl1DG4bOKN4X+ZYA1wHkYxDxEeyEmQLzUa4z/p6kmz8VKkV0G7oPtu89OJeH9U7axpIV1uhFfqEFg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\Bowling_Server\\Bowling_Server.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Semejkin_AV\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\Semejkin_AV\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.15\\microsoft.netcore.app.host.win-x64.5.0.15.nupkg.sha512"
+  ],
+  "logs": []
+}
