@@ -87,6 +87,22 @@ namespace Bowling_Server
         {
             Console.WriteLine("OK");
             CastOpponents(group);
+            foreach (var player in group)
+            {
+                Thread thread = new Thread(() =>
+                {
+                    byte[] data = new byte[1024];
+                    while (true)
+                    {
+                        int dataLength = player.socket.Receive(data);
+                        string json = Encoding.ASCII.GetString(data, 0, dataLength);
+                        player.Deserialize(json);
+                        CastOpponents(group);
+                    }
+                }
+            );
+                thread.Start();
+            }
         }
     }
 }

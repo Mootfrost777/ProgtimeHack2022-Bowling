@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
-using Newtonsoft.Json;
-using NetLib;
+using Newtonsoft.Json;  
 
 namespace Bowling.Classes
 {
@@ -12,17 +11,11 @@ namespace Bowling.Classes
     internal class Player
     {
         [JsonProperty("name")]
-        private string name { get; set; }
+        public string Name { get; set; }
 
         [JsonProperty("score")]
-        private List<int> score { get; set; }
+        public List<int> Score { get; set; }
 
-
-        public Player(string name)
-        {
-            this.name = name;
-            score = new List<int>();
-        }
         
         public string Serialize()
         {
@@ -32,8 +25,8 @@ namespace Bowling.Classes
         public void Deserialize(string json)
         {
             Player player = JsonConvert.DeserializeObject<Player>(json);
-            name = player.name;
-            score = player.score;
+            Name = player.Name;
+            Score = player.Score;
         }
     }
 }

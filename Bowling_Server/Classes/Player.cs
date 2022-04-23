@@ -9,23 +9,14 @@ namespace Bowling_Server.Classes
     internal class Player
     { 
         [JsonProperty("name")]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [JsonProperty("score")]
-        public List<int> score { get; set; }
+        public List<int> Score { get; set; }
 
         [NonSerialized]
         public Socket socket;
-
-        public Player(string name)
-        {
-            this.name = name;
-            score = new List<int>();
-        }
-        public Player()
-        {
-
-        }
+        
         
         public string Serialize()
         {
@@ -35,8 +26,8 @@ namespace Bowling_Server.Classes
         public void Deserialize(string json)
         {
             Player player = JsonConvert.DeserializeObject<Player>(json);
-            name = player.name;
-            score = player.score;
+            Name = player.Name;
+            Score = player.Score;
         }
     }
 }

@@ -6,12 +6,13 @@ using Bowling.Classes.UI;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using NetLib;
+using System.Threading;
 
 namespace Bowling
 {
     public enum GameState
     {
-        Menu, Game, Exit, Connect_to_server
+        Menu, Game, Exit, Connect_to_server, EndGame
     }
     public class Game1 : Game
     {
@@ -35,13 +36,10 @@ namespace Bowling
         private Classes.UI.Label lblCountP1;
         private Classes.UI.Label lblCountP2;
 
-        private int knockedPins;
 
         private List<Pin> pins = new List<Pin>();
 
         public static GameState gameState = GameState.Connect_to_server;
-
-        Player player;
 
         public static int Gutter_height { get { return gutter_height; } }
         public static int Gutter_top_y { get { return gutter_top_y; } }
@@ -95,7 +93,6 @@ namespace Bowling
             ball.LoadContent(Content);
             whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
             whiteRectangle.SetData(new[] { Color.White });
-            
             menu.LoadContent(Content);
         }
 
@@ -118,12 +115,17 @@ namespace Bowling
                     if (connect.ShowDialog() == DialogResult.OK)
                     {
                         gameState = GameState.Menu;
-                        player = new Player(connec  t.name);  // Игрок, потом из него подключение к серверу
+                        gameState = GameState.Menu;
+                        player1 = new Player() { Name = connect.Name, Score = new List<int>() };
                         NetLib.NetLib.IP = connect.IP;
                         NetLib.NetLib.port = connect.Port;
                         NetLib.NetLib.Connect();
-                        NetLib.NetLib.Send(player.Serialize());
-                        System.Console.WriteLine(NetLib.NetLib.Receive());
+                        SendPlayerData(player1);
+                        Thread thread = new Thread(() =>
+                        {
+                            player2.Deserialize(NetLib.NetLib.Receive());
+                        });
+                        thread.Start();
                     }
                     else { gameState = GameState.Exit; }
                     break;
@@ -140,6 +142,7 @@ namespace Bowling
             switch (gameState)
             {
                 case GameState.Game:
+                    DrawGrid();
                     _spriteBatch.Draw(whiteRectangle, new Rectangle(0, gutter_top_y - gutter_height, 10000, gutter_height), Color.Aquamarine);
                     _spriteBatch.Draw(whiteRectangle, new Rectangle(0, gutter_bottom_y, 10000, gutter_height), Color.Aquamarine);
                     for (int i = 0; i < pins.Count; i++)
@@ -147,7 +150,10 @@ namespace Bowling
                         pins[i].Draw(_spriteBatch);
                     }
                     ball.Draw(_spriteBatch);
-                    base.Draw(gameTime);
+                    foreach (Classes.UI.Label lbl in tableLabels)
+                    {
+                        lbl.Draw(_spriteBatch);
+                    }
                     break;
                 case GameState.Menu:
                     menu.Draw(_spriteBatch);
@@ -165,13 +171,127 @@ namespace Bowling
             foreach (Pin pin in collides_keggles)
             {
                 pin.IsVisible = false;
-                knockedPins++;
+                intermediateScore++;
+            }
+            if (ball.State == State.Gone)
+            {
+                player1.Score.Add(intermediateScore);
+                intermediateScore = 0;
+                ball = new Ball(ballStartPosition, Vector2.Zero, Color.Blue, Gutter_top_y, gutter_bottom_y, gutter_height, _graphics.PreferredBackBufferWidth);
+                ball.LoadContent(Content);
+                if (player1.Score.Count <= 20 && player1.Score.Count % 2 == 0)
+                {
+                    NewMove();
+                }
+                else if (player1.Score.Count == 20)
+                {
+                    if (player1.Score[18] + player1.Score[19] == 10) NewMove();
+                }
+                if (player1.Score.Count == 20 && player1.Score[18] + player1.Score[19] != 10)
+                {
+                    gameState = GameState.EndGame;
+                }
+                SendPlayerData(player1);
             }
         }
 
-        private void GetOpponentName()
+        private void DrawGrid()
         {
-            
+            tableLabels.Clear();
+            int currentRow = 0;
+            int currentColumn = 0;
+            for (int i = 0; i < 6; i++)
+            {
+                _spriteBatch.Draw(whiteRectangle, new Rectangle((i == 0 || i % 2 == 1) ? tableMarginLeft : tableMarginLeft + rowWidth,
+                    currentRow + tableMarginTop, (i == 0 || i % 2 == 1) ? 13 * rowWidth : 12 * rowWidth, 2), Color.Black);
+                currentRow += (i != 0 && i % 2 == 0) ? 2 * rowHeight : rowHeight;
+            }
+            for (int i = 0; i < 13; i++)
+            {
+                _spriteBatch.Draw(whiteRectangle, new Rectangle(currentColumn + tableMarginLeft, tableMarginTop, 2, currentRow - rowHeight),
+                    Color.Black);
+                currentColumn += (i == 10) ? 2 * rowWidth : rowWidth;
+            }
+            for (int i = 1; i < 11; i++)
+            {
+                int shift = (i == 10) ? tableMarginLeft - 5 + rowWidth * i + rowWidth : tableMarginLeft - 5 + rowWidth * i + rowWidth / 2;
+                Classes.UI.Label lbl = new Classes.UI.Label(i.ToString(), new Vector2(shift, tableMarginTop + 2), Color.Red);
+                lbl.LoadContent(Content);
+                tableLabels.Add(lbl);
+            }
+            Classes.UI.Label label = new Classes.UI.Label("TTL", new Vector2(tableMarginLeft + currentColumn - 2 * rowWidth + 10, tableMarginTop + 5), Color.Red);
+            label.LoadContent(Content);
+            tableLabels.Add(label);
+            for (int i = 0; i < player1.Score.Count; i++)
+            {
+                string score = (player1.Score[i] == 0) ? "-" : player1.Score[i].ToString();
+                if (i != 0 && i % 2 == 1) score = (player1.Score[i] + player1.Score[i - 1] == 10) ? "/" : score;
+                Classes.UI.Label lbl = new Classes.UI.Label(score, new Vector2(tableMarginLeft + rowWidth + i * (rowWidth / 2) + 10, tableMarginTop + rowHeight + 5),
+                    Color.Fuchsia);
+                lbl.LoadContent(Content);
+                tableLabels.Add(lbl);
+            }
+            for (int i = 0; i < player1.Score.Count / 2; i++)
+            {
+                int score = player1.Score[i * 2] + player1.Score[i * 2 + 1];
+                Classes.UI.Label lbl = new Classes.UI.Label(score.ToString(), new Vector2(tableMarginLeft + rowWidth + i * rowWidth + 30, tableMarginTop + 2 * rowHeight + 25)
+                    , Color.Fuchsia);
+                lbl.FontName = "gameFont2";
+                lbl.LoadContent(Content);
+                tableLabels.Add(lbl);
+            }
+            int countRows = 1;
+            for (int i = 0; i < 4; i++)
+            {
+                int score = 0;
+                if (i % 2 == 0) score = 0;
+                else if (i == 1) score = Sum(player1.Score);
+                else score = Sum(player2.Score);
+                Classes.UI.Label lbl = new Classes.UI.Label(score.ToString(), new Vector2(tableMarginLeft + rowWidth * 12 + rowWidth / 2, tableMarginTop + countRows + rowHeight + 5),
+                    Color.Fuchsia);
+                lbl.LoadContent(Content);
+                tableLabels.Add(lbl);
+                countRows += (i != 0 && i % 2 == 1) ? 2 * rowHeight : rowHeight;
+            }
+            for (int i = 0; i < player2.Score.Count; i++)
+            {
+                string score = (player2.Score[i] == 0) ? "-" : player2.Score[i].ToString();
+                if (i != 0 && i % 2 == 1) score = (player2.Score[i] + player2.Score[i - 1] == 10) ? "/" : score;
+                Classes.UI.Label lbl = new Classes.UI.Label(score, new Vector2(tableMarginLeft + rowWidth + i * (rowWidth / 2) + 10, tableMarginTop + rowHeight * 4 + 5),
+                    Color.Fuchsia);
+                lbl.LoadContent(Content);
+                tableLabels.Add(lbl);
+            }
+            for (int i = 0; i < player2.Score.Count / 2; i++)
+            {
+                int score = player2.Score[i * 2] + player2.Score[i * 2 + 1];
+                Classes.UI.Label lbl = new Classes.UI.Label(score.ToString(), new Vector2(tableMarginLeft + rowWidth + i * rowWidth + 30, tableMarginTop + 5 * rowHeight + 25)
+                    , Color.Fuchsia);
+                lbl.FontName = "gameFont2";
+                lbl.LoadContent(Content);
+                tableLabels.Add(lbl);
+            }
+        }
+
+        private void NewMove()
+        {
+            pins.Clear();
+            LoadContent();
+        }
+
+        private int Sum(List<int> score)
+        {
+            int sum = 0;
+            foreach (int a in score)
+            {
+                sum += a;
+            }
+            return sum;
+        }
+
+        private void SendPlayerData(Player player)
+        {
+            NetLib.NetLib.Send(player.Serialize());
         }
     }
 }

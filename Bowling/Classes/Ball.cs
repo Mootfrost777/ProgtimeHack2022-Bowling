@@ -43,7 +43,7 @@ namespace Bowling.Classes
         public void LoadContent(ContentManager manager)
         {
             arrow.LoadContent(manager);
-            texture = manager.Load<Texture2D>("ball (2)");
+            texture = manager.Load<Texture2D>("ball");
             radius = texture.Width / 2;
         }
 

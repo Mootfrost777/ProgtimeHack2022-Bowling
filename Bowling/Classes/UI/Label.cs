@@ -12,6 +12,9 @@ namespace Bowling.Classes.UI
         public Vector2 Position { get; set; }
         public string Text { get; set; }
         public Color Color { get; set; }
+        public string fontName = "gameFont";
+
+        public string FontName { set { fontName = value; } }
 
         public Label()
         {
@@ -37,7 +40,7 @@ namespace Bowling.Classes.UI
 
         public void LoadContent(ContentManager Content)
         {
-            spriteFont = Content.Load<SpriteFont>("gameFont");
+            spriteFont = Content.Load<SpriteFont>(fontName);
         }
 
         public void Draw(SpriteBatch spriteBatch)
