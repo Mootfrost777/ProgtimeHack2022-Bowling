@@ -22,6 +22,18 @@ namespace Bowling
         private static int gutter_bottom_y;
         private Texture2D whiteRectangle;
         private Ball ball;
+        private Player player1;
+        private Player player2;
+        private Menu menu;
+        private int rowWidth;
+        private int rowHeight;
+        private int tableMarginTop;
+        private int tableMarginLeft;
+        private Vector2 ballStartPosition;
+        private List<Classes.UI.Label> tableLabels;
+        private int intermediateScore;
+        private Classes.UI.Label lblCountP1;
+        private Classes.UI.Label lblCountP2;
 
         private int knockedPins;
 
@@ -31,8 +43,6 @@ namespace Bowling
 
         Player player;
 
-        Menu menu;
-
         public static int Gutter_height { get { return gutter_height; } }
         public static int Gutter_top_y { get { return gutter_top_y; } }
         public static int Gutter_bottom_y { get { return gutter_bottom_y; } }
@@ -41,7 +51,7 @@ namespace Bowling
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 1500;
-            _graphics.PreferredBackBufferHeight = 900;
+            _graphics.PreferredBackBufferHeight = 1000;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -51,9 +61,17 @@ namespace Bowling
             // TODO: Add your initialization logic here
             gutter_top_y = _graphics.PreferredBackBufferHeight / 2 - 50;
             gutter_bottom_y = _graphics.PreferredBackBufferHeight - 100;
-            gutter_height = 20;
-            ball = new Ball(new Vector2(10, gutter_top_y + (gutter_bottom_y - gutter_top_y) / 2 - 25), Vector2.Zero, Color.Blue, Gutter_top_y, gutter_bottom_y, gutter_height);
+            gutter_height = 50;
+            ballStartPosition = new Vector2(10, gutter_top_y + (gutter_bottom_y - gutter_top_y) / 2 - 25);
+            ball = new Ball(ballStartPosition, Vector2.Zero, Color.Blue, Gutter_top_y, gutter_bottom_y, gutter_height, _graphics.PreferredBackBufferWidth);
             menu = new Menu();
+            player2 = new Player();
+            rowWidth = 80;
+            rowHeight = 50;
+            tableMarginTop = 20;
+            tableMarginLeft = 20;
+            tableLabels = new List<Classes.UI.Label>();
+            intermediateScore = 0;
 
             base.Initialize();
         }
@@ -100,7 +118,7 @@ namespace Bowling
                     if (connect.ShowDialog() == DialogResult.OK)
                     {
                         gameState = GameState.Menu;
-                        player = new Player(connect.name);  // Игрок, потом из него подключение к серверу
+                        player = new Player(connec  t.name);  // Игрок, потом из него подключение к серверу
                         NetLib.NetLib.IP = connect.IP;
                         NetLib.NetLib.port = connect.Port;
                         NetLib.NetLib.Connect();
@@ -149,6 +167,11 @@ namespace Bowling
                 pin.IsVisible = false;
                 knockedPins++;
             }
+        }
+
+        private void GetOpponentName()
+        {
+            
         }
     }
 }
