@@ -93,3 +93,4 @@ C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Bowling\obj
 C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Bowling\obj\Debug\netcoreapp3.1\Bowling.pdb
 C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Bowling\obj\Debug\netcoreapp3.1\Bowling.genruntimeconfig.cache
 C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Bowling\bin\Debug\netcoreapp3.1\Content\gameFont2.xnb
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Bowling\bin\Debug\netcoreapp3.1\Content\line.xnb

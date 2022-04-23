@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using NetLib;
 using System.Threading;
 using System.Text;
+using System;
 
 namespace Bowling
 {
@@ -17,6 +18,7 @@ namespace Bowling
     }
     public class Game1 : Game
     {
+        private Color[] colors = { Color.White, Color.Red, Color.Black, Color.DeepSkyBlue, Color.DeepPink };
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private static int gutter_height;
@@ -35,6 +37,8 @@ namespace Bowling
         private List<Classes.UI.Label> tableLabels;
         private int intermediateScore;
         private int counter;
+        private Texture2D line_texture;
+        private Random random;
 
 
         private List<Pin> pins = new List<Pin>();
@@ -62,7 +66,8 @@ namespace Bowling
             gutter_bottom_y = _graphics.PreferredBackBufferHeight - 100;
             gutter_height = 50;
             ballStartPosition = new Vector2(10, gutter_top_y + (gutter_bottom_y - gutter_top_y) / 2 - 25);
-            ball = new Ball(ballStartPosition, Vector2.Zero, Color.Blue, Gutter_top_y, gutter_bottom_y, gutter_height, _graphics.PreferredBackBufferWidth);
+            random = new Random();
+            ball = new Ball(ballStartPosition, Vector2.Zero, colors[random.Next(colors.Length)], Gutter_top_y, gutter_bottom_y, gutter_height, _graphics.PreferredBackBufferWidth);
             menu = new Menu();
             player2 = new Player();
             rowWidth = 80;
@@ -88,7 +93,7 @@ namespace Bowling
             {
                 for (int j = 0; j < count; j++)
                 {
-                    pins.Add(new Pin(keggle_texture, new Vector2(_graphics.PreferredBackBufferWidth - 150 * modifier + i * keggle_texture.Width * modifier, j * keggle_texture.Height * modifier + gutter_top_y - keggle_texture.Height * count / 2 * modifier + keggle_texture.Height * 6 + 30)));
+                    pins.Add(new Pin(keggle_texture, new Vector2(_graphics.PreferredBackBufferWidth - 150 * modifier + i * keggle_texture.Width * modifier, j * keggle_texture.Height * modifier + gutter_top_y - keggle_texture.Height * count / 2 * modifier + keggle_texture.Height * 5 + 30)));
                 }
                 count += 1;
             }
@@ -96,6 +101,7 @@ namespace Bowling
             whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
             whiteRectangle.SetData(new[] { Color.White });
             menu.LoadContent(Content);
+            line_texture = Content.Load<Texture2D>("line");
         }
 
         protected override void Update(GameTime gameTime)
@@ -131,7 +137,6 @@ namespace Bowling
                                 if (msg == "11")
                                 {
                                     ResetAll();
-                                    break;
                                 }
                                 else
                                 {
@@ -170,8 +175,9 @@ namespace Bowling
             {
                 case GameState.Game:
                     DrawGrid();
-                    _spriteBatch.Draw(whiteRectangle, new Rectangle(0, gutter_top_y - gutter_height, 10000, gutter_height), Color.Aquamarine);
-                    _spriteBatch.Draw(whiteRectangle, new Rectangle(0, gutter_bottom_y, 10000, gutter_height), Color.Aquamarine);
+                    _spriteBatch.Draw(whiteRectangle, new Rectangle(0, gutter_top_y - gutter_height, 10000, gutter_height), Color.Gray);
+                    _spriteBatch.Draw(whiteRectangle, new Rectangle(0, gutter_bottom_y, 10000, gutter_height), Color.Gray);
+                    _spriteBatch.Draw(line_texture, new Rectangle(0, gutter_top_y, _graphics.PreferredBackBufferWidth, gutter_bottom_y - gutter_top_y), Color.White);
                     for (int i = 0; i < pins.Count; i++)
                     {
                         pins[i].Draw(_spriteBatch);
@@ -240,6 +246,9 @@ namespace Bowling
         private void DrawGrid()
         {
             tableLabels.Clear();
+            _spriteBatch.Draw(whiteRectangle, new Rectangle(tableMarginLeft, tableMarginTop, rowWidth * 13, rowHeight * 7), Color.RoyalBlue);
+            _spriteBatch.Draw(whiteRectangle, new Rectangle(tableMarginLeft + rowWidth, tableMarginTop + rowHeight, rowWidth * 12, rowHeight * 6),
+                Color.SkyBlue);
             int currentRow = 0;
             int currentColumn = 0;
             for (int i = 0; i < 6; i++)
@@ -257,11 +266,11 @@ namespace Bowling
             for (int i = 1; i < 11; i++)
             {
                 int shift = (i == 10) ? tableMarginLeft - 5 + rowWidth * i + rowWidth : tableMarginLeft - 5 + rowWidth * i + rowWidth / 2;
-                Classes.UI.Label lbl = new Classes.UI.Label(i.ToString(), new Vector2(shift, tableMarginTop + 2), Color.Red);
+                Classes.UI.Label lbl = new Classes.UI.Label(i.ToString(), new Vector2(shift, tableMarginTop + 2), Color.White);
                 lbl.LoadContent(Content);
                 tableLabels.Add(lbl);
             }
-            Classes.UI.Label label = new Classes.UI.Label("TTL", new Vector2(tableMarginLeft + currentColumn - 2 * rowWidth + 10, tableMarginTop + 5), Color.Red);
+            Classes.UI.Label label = new Classes.UI.Label("TTL", new Vector2(tableMarginLeft + currentColumn - 2 * rowWidth + 10, tableMarginTop + 5), Color.MonoGameOrange);
             label.LoadContent(Content);
             tableLabels.Add(label);
             for (int i = 0; i < player1.Score.Count; i++)
@@ -269,15 +278,15 @@ namespace Bowling
                 string score = (player1.Score[i] == 0) ? "-" : player1.Score[i].ToString();
                 if (i != 0 && i % 2 == 1) score = (player1.Score[i] + player1.Score[i - 1] == 10) ? "/" : score;
                 Classes.UI.Label lbl = new Classes.UI.Label(score, new Vector2(tableMarginLeft + rowWidth + i * (rowWidth / 2) + 10, tableMarginTop + rowHeight + 5),
-                    Color.Fuchsia);
+                    Color.White);
                 lbl.LoadContent(Content);
                 tableLabels.Add(lbl);
             }
             for (int i = 0; i < player1.Score.Count / 2; i++)
             {
                 int score = player1.Score[i * 2] + player1.Score[i * 2 + 1];
-                Classes.UI.Label lbl = new Classes.UI.Label(score.ToString(), new Vector2(tableMarginLeft + rowWidth + i * rowWidth + 30, tableMarginTop + 2 * rowHeight + 25)
-                    , Color.Fuchsia);
+                Classes.UI.Label lbl = new Classes.UI.Label(score.ToString(), new Vector2(tableMarginLeft + rowWidth + i * rowWidth + 30, tableMarginTop + 2 * rowHeight + 25),
+                    Color.White);
                 lbl.FontName = "gameFont2";
                 lbl.LoadContent(Content);
                 tableLabels.Add(lbl);
@@ -290,7 +299,7 @@ namespace Bowling
                 else if (i == 1) score = Sum(player1.Score);
                 else score = Sum(player2.Score);
                 Classes.UI.Label lbl = new Classes.UI.Label(score.ToString(), new Vector2(tableMarginLeft + rowWidth * 12 + rowWidth / 2 - 15, tableMarginTop + countRows + rowHeight + ((i % 2 == 1) ? 15 : 5)),
-                    Color.Fuchsia);
+                    Color.White);
                 if (i % 2 == 1) lbl.FontName = "gameFont2";
                 lbl.LoadContent(Content);
                 tableLabels.Add(lbl);
@@ -301,25 +310,26 @@ namespace Bowling
                 string score = (player2.Score[i] == 0) ? "-" : player2.Score[i].ToString();
                 if (i != 0 && i % 2 == 1) score = (player2.Score[i] + player2.Score[i - 1] == 10) ? "/" : score;
                 Classes.UI.Label lbl = new Classes.UI.Label(score, new Vector2(tableMarginLeft + rowWidth + i * (rowWidth / 2) + 10, tableMarginTop + rowHeight * 4 + 5),
-                    Color.Fuchsia);
+                    Color.White);
                 lbl.LoadContent(Content);
                 tableLabels.Add(lbl);
             }
             for (int i = 0; i < player2.Score.Count / 2; i++)
             {
                 int score = player2.Score[i * 2] + player2.Score[i * 2 + 1];
-                Classes.UI.Label lbl = new Classes.UI.Label(score.ToString(), new Vector2(tableMarginLeft + rowWidth + i * rowWidth + 30, tableMarginTop + 5 * rowHeight + 25)
-                    , Color.Fuchsia);
+                Classes.UI.Label lbl = new Classes.UI.Label(score.ToString(), new Vector2(tableMarginLeft + rowWidth + i * rowWidth + 30, tableMarginTop + 5 * rowHeight + 25),
+                    Color.White);
                 lbl.FontName = "gameFont2";
                 lbl.LoadContent(Content);
                 tableLabels.Add(lbl);
             }
-            Classes.UI.Label label_p1_name = new Classes.UI.Label(player1.Name[0].ToString(), new Vector2(tableMarginLeft + 2, tableMarginTop + rowHeight),
-                Color.Red);
+            Classes.UI.Label label_p1_name = new Classes.UI.Label(player1.Name[0].ToString(), new Vector2(tableMarginLeft + 5, tableMarginTop + rowHeight),
+                Color.White);
             label_p1_name.LoadContent(Content);
             tableLabels.Add(label_p1_name);
 
-            Classes.UI.Label label_p2_name = new Classes.UI.Label(player2.Name[0].ToString(), new Vector2(tableMarginLeft + 2, tableMarginTop + 4 * rowHeight), Color.Red);
+            Classes.UI.Label label_p2_name = new Classes.UI.Label(player2.Name[0].ToString(), new Vector2(tableMarginLeft + 5, tableMarginTop + 4 * rowHeight),
+                Color.White);
             label_p2_name.LoadContent(Content);
             tableLabels.Add(label_p2_name);
         }
@@ -333,14 +343,10 @@ namespace Bowling
         private int Sum(List<int> score)
         {
             int sum = 0;
-            try
+            for (int i = 0; i < score.Count; i++)
             {
-                foreach (int a in score)
-                {
-                    sum += a;
-                }
+                sum += score[i];
             }
-            catch { }
             return sum;
         }
 
