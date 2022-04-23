@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tj6d3GM2KPcBk2NtYs4+n0M9put13cT6anwGPd4IeP8OMFqbOKBJDV1yoNophJgo8EpPUbPjVHO+RxO+sQG+8Q==",
+  "dgSpecHash": "ODcV+XYjSRps62QvM/G3mlGg5SUpq0fntQIOF2YW3wDnrcZ/VFWwoHCsVzGHq07LBuoCVFV2ERkxSXYym53gog==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\BowlingNetLib\\NetLib.csproj",
+  "projectFilePath": "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\BowlingNetLib\\NetLib.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Semejkin_AV\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
   ],

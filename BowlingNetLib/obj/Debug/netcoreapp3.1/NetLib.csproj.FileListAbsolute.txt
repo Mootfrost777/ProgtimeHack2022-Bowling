@@ -8,3 +8,13 @@ C:\Users\Semejkin_AV\source\repos\Bowling\BowlingNetLib\obj\Debug\netcoreapp3.1\
 C:\Users\Semejkin_AV\source\repos\Bowling\BowlingNetLib\obj\Debug\netcoreapp3.1\NetLib.csproj.CoreCompileInputs.cache
 C:\Users\Semejkin_AV\source\repos\Bowling\BowlingNetLib\obj\Debug\netcoreapp3.1\NetLib.dll
 C:\Users\Semejkin_AV\source\repos\Bowling\BowlingNetLib\obj\Debug\netcoreapp3.1\NetLib.pdb
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\BowlingNetLib\bin\Debug\netcoreapp3.1\NetLib.deps.json
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\BowlingNetLib\bin\Debug\netcoreapp3.1\NetLib.dll
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\BowlingNetLib\bin\Debug\netcoreapp3.1\NetLib.pdb
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\BowlingNetLib\obj\Debug\netcoreapp3.1\NetLib.csproj.AssemblyReference.cache
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\BowlingNetLib\obj\Debug\netcoreapp3.1\NetLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\BowlingNetLib\obj\Debug\netcoreapp3.1\NetLib.AssemblyInfoInputs.cache
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\BowlingNetLib\obj\Debug\netcoreapp3.1\NetLib.AssemblyInfo.cs
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\BowlingNetLib\obj\Debug\netcoreapp3.1\NetLib.csproj.CoreCompileInputs.cache
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\BowlingNetLib\obj\Debug\netcoreapp3.1\NetLib.dll
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\BowlingNetLib\obj\Debug\netcoreapp3.1\NetLib.pdb

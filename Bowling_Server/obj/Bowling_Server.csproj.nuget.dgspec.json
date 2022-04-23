@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\Bowling_Server\\Bowling_Server.csproj": {}
+    "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\Bowling_Server\\Bowling_Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\BowlingNetLib\\NetLib.csproj": {
+    "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\BowlingNetLib\\NetLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\BowlingNetLib\\NetLib.csproj",
+        "projectUniqueName": "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\BowlingNetLib\\NetLib.csproj",
         "projectName": "NetLib",
-        "projectPath": "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\BowlingNetLib\\NetLib.csproj",
+        "projectPath": "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\BowlingNetLib\\NetLib.csproj",
         "packagesPath": "C:\\Users\\Semejkin_AV\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\BowlingNetLib\\obj\\",
+        "outputPath": "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\BowlingNetLib\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Semejkin_AV\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -64,14 +64,14 @@
         }
       }
     },
-    "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\Bowling_Server\\Bowling_Server.csproj": {
+    "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\Bowling_Server\\Bowling_Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\Bowling_Server\\Bowling_Server.csproj",
+        "projectUniqueName": "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\Bowling_Server\\Bowling_Server.csproj",
         "projectName": "Bowling_Server",
-        "projectPath": "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\Bowling_Server\\Bowling_Server.csproj",
+        "projectPath": "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\Bowling_Server\\Bowling_Server.csproj",
         "packagesPath": "C:\\Users\\Semejkin_AV\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\Bowling_Server\\obj\\",
+        "outputPath": "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\Bowling_Server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Semejkin_AV\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -88,8 +88,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\BowlingNetLib\\NetLib.csproj": {
-                "projectPath": "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\BowlingNetLib\\NetLib.csproj"
+              "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\BowlingNetLib\\NetLib.csproj": {
+                "projectPath": "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\BowlingNetLib\\NetLib.csproj"
               }
             }
           }

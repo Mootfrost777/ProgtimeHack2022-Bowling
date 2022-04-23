@@ -24,7 +24,7 @@ namespace Bowling_Server
             {
                 while (true)
                 {
-                    if (players.Count % 2 == 0)
+                    if (players.Count % 2 == 0 && players.Count > 0)
                     {
                         List<Player> group = new List<Player>();
                         for (int i = 0; i < 2; i++)
@@ -64,15 +64,29 @@ namespace Bowling_Server
             socket.Bind(ipe);
             socket.Listen(2);
         }
-        public static void Send(string message)
+        public static void Send(string message, Socket client)
         {
             byte[] data = Encoding.ASCII.GetBytes(message);
-            socket.Send(data);
+            client.Send(data);
+        }
+        static void CastOpponents(List<Player> group)
+        {
+            foreach (Player player in group)
+            {
+                foreach (Player opponent in group)
+                {
+                    if (opponent != player)
+                    {
+                        Send(opponent.Serialize(), player.socket);
+                    }
+                }
+            }
         }
 
         static void StartGame(List<Player> group)
         {
-            
+            Console.WriteLine("OK");
+            CastOpponents(group);
         }
     }
 }

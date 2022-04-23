@@ -1,0 +1,10 @@
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Serializer\bin\Debug\netcoreapp3.1\Serializer.deps.json
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Serializer\bin\Debug\netcoreapp3.1\Serializer.dll
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Serializer\bin\Debug\netcoreapp3.1\Serializer.pdb
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Serializer\obj\Debug\netcoreapp3.1\Serializer.csproj.AssemblyReference.cache
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Serializer\obj\Debug\netcoreapp3.1\Serializer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Serializer\obj\Debug\netcoreapp3.1\Serializer.AssemblyInfoInputs.cache
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Serializer\obj\Debug\netcoreapp3.1\Serializer.AssemblyInfo.cs
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Serializer\obj\Debug\netcoreapp3.1\Serializer.csproj.CoreCompileInputs.cache
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Serializer\obj\Debug\netcoreapp3.1\Serializer.dll
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Serializer\obj\Debug\netcoreapp3.1\Serializer.pdb

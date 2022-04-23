@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 
 namespace Bowling_Server.Classes
 {
+    [Serializable]
     internal class Player
     { 
         [JsonProperty("name")]
@@ -13,6 +14,7 @@ namespace Bowling_Server.Classes
         [JsonProperty("score")]
         public List<int> score { get; set; }
 
+        [NonSerialized]
         public Socket socket;
 
         public Player(string name)
@@ -24,7 +26,7 @@ namespace Bowling_Server.Classes
         {
 
         }
-
+        
         public string Serialize()
         {
             return JsonConvert.SerializeObject(this);

@@ -8,6 +8,7 @@ using NetLib;
 
 namespace Bowling.Classes
 {
+    [Serializable]
     internal class Player
     {
         [JsonProperty("name")]
@@ -22,7 +23,7 @@ namespace Bowling.Classes
             this.name = name;
             score = new List<int>();
         }
-
+        
         public string Serialize()
         {
             return JsonConvert.SerializeObject(this);

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3koAx57pqT6amCrjG9aTOKsfpwKuWVV9FjEZWz5WUyCMyWhZKoLvZPZ9nY3OdOP+VVYQsZSmfZahSYQu5Bgv/A==",
+  "dgSpecHash": "2bg7gzIa3zKLg9poi99a0ETJb0CiV69daH/VrmGZxD/dIt4koHt8PU2WyunLoDx9b/izWuN40bWpeOFqFhd6rA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Semejkin_AV\\source\\repos\\Bowling\\Bowling\\Bowling.csproj",
+  "projectFilePath": "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\Bowling\\Bowling.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Semejkin_AV\\.nuget\\packages\\libuv\\1.9.1\\libuv.1.9.1.nupkg.sha512",
     "C:\\Users\\Semejkin_AV\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\1.1.0\\microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",

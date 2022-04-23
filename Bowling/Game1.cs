@@ -105,6 +105,7 @@ namespace Bowling
                         NetLib.NetLib.port = connect.Port;
                         NetLib.NetLib.Connect();
                         NetLib.NetLib.Send(player.Serialize());
+                        System.Console.WriteLine(NetLib.NetLib.Receive());
                     }
                     else { gameState = GameState.Exit; }
                     break;
