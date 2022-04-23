@@ -98,14 +98,14 @@ namespace Bowling_Server
                         {
                             int dataLength = player.socket.Receive(data);
                             string json = Encoding.ASCII.GetString(data, 0, dataLength);
-                            if (json.Contains("11"))
+                            if (json == "11")
                             {
-                                foreach (var player in group)
-                                {
+                                //foreach (var player in group)
+                                //{
                                     player.socket.Send(Encoding.ASCII.GetBytes("11"));
                                     player.Score = new List<int>();
                                     players.Add(player);
-                                }
+                                //}
                                 break;
                             }
                             player.Deserialize(json);

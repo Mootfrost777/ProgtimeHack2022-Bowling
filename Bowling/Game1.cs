@@ -333,10 +333,14 @@ namespace Bowling
         private int Sum(List<int> score)
         {
             int sum = 0;
-            foreach (int a in score)
+            try
             {
-                sum += a;
+                foreach (int a in score)
+                {
+                    sum += a;
+                }
             }
+            catch { }
             return sum;
         }
 
@@ -349,8 +353,8 @@ namespace Bowling
         {
             ball = new Ball(ballStartPosition, Vector2.Zero, Color.Blue, Gutter_top_y, gutter_bottom_y, gutter_height, _graphics.PreferredBackBufferWidth);
             menu = new Menu();
-            player2 = new Player();
-            player1 = new Player();
+            player1.Score.Clear();
+            player2.Score.Clear();
             rowWidth = 80;
             rowHeight = 50;
             tableMarginTop = 20;
