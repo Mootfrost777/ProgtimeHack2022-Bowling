@@ -15,7 +15,7 @@ namespace NetLib
 
         public static void Connect()
         {
-            IPAddress ip = IPAddress.Parse(IP);
+            IPAddress ip = Dns.GetHostAddresses(IP)[0];
             IPEndPoint ipe = new IPEndPoint(ip, port);
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             socket.Connect(ipe);

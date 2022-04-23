@@ -114,7 +114,7 @@ namespace Bowling
                     Connect connect = new Connect();
                     if (connect.ShowDialog() == DialogResult.OK)
                     {
-                        gameState = GameState.Game;
+                        gameState = GameState.Menu;
                         player1 = new Player() { Name = connect.Name, Score = new List<int>() };
                         NetLib.NetLib.IP = connect.IP;
                         NetLib.NetLib.port = connect.Port;

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "BEh5d9qXk9PtQezdq/2nEVWFOsPSR1oVjwUhtMfugQxH0a54MUMI06CPnCdjxEKu0guIGIy/EiGQCb1zqwwuWw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Semejkin_AV\\Documents\\Github_repos\\ProgtimeHack2022_Bowling\\Test\\Test.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Semejkin_AV\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.23\\microsoft.netcore.app.host.win-x64.3.1.23.nupkg.sha512"
+  ],
+  "logs": []
+}

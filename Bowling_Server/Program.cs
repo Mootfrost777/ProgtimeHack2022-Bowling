@@ -13,7 +13,6 @@ namespace Bowling_Server
     {
         static List<Player> players = new List<Player>();
         private static Socket socket;
-        public static Random random;
 
         static void Main(string[] args)
         {
@@ -85,6 +84,7 @@ namespace Bowling_Server
 
         static void StartGame(List<Player> group)
         {
+            
             Console.WriteLine("OK");
             CastOpponents(group);
             foreach (var player in group)
@@ -92,15 +92,30 @@ namespace Bowling_Server
                 Thread thread = new Thread(() =>
                 {
                     byte[] data = new byte[1024];
-                    while (true)
+                    player.socket.ReceiveTimeout = 60000;
+                    try
                     {
-                        int dataLength = player.socket.Receive(data);
-                        string json = Encoding.ASCII.GetString(data, 0, dataLength);
-                        player.Deserialize(json);
-                        CastOpponents(group);
+                        while (true)
+                        {
+                            int dataLength = player.socket.Receive(data);
+                            string json = Encoding.ASCII.GetString(data, 0, dataLength);
+                            player.Deserialize(json);
+                            CastOpponents(group);
+                        }
                     }
-                }
-            );
+                    catch
+                    {
+                        Console.WriteLine("Player disconnected");
+                        if (group.IndexOf(player) == 1)
+                        {
+                            players.Add(group[0]);
+                        }
+                        else
+                        {
+                            players.Add(group[1]);
+                        }
+                    }
+                });
                 thread.Start();
             }
         }

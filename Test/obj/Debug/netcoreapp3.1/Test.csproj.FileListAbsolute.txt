@@ -1,0 +1,14 @@
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\bin\Debug\netcoreapp3.1\Test.exe
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\bin\Debug\netcoreapp3.1\Test.deps.json
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\bin\Debug\netcoreapp3.1\Test.runtimeconfig.json
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\bin\Debug\netcoreapp3.1\Test.runtimeconfig.dev.json
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\bin\Debug\netcoreapp3.1\Test.dll
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\bin\Debug\netcoreapp3.1\Test.pdb
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\obj\Debug\netcoreapp3.1\Test.csproj.AssemblyReference.cache
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\obj\Debug\netcoreapp3.1\Test.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\obj\Debug\netcoreapp3.1\Test.AssemblyInfoInputs.cache
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\obj\Debug\netcoreapp3.1\Test.AssemblyInfo.cs
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\obj\Debug\netcoreapp3.1\Test.csproj.CoreCompileInputs.cache
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\obj\Debug\netcoreapp3.1\Test.dll
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\obj\Debug\netcoreapp3.1\Test.pdb
+C:\Users\Semejkin_AV\Documents\Github_repos\ProgtimeHack2022_Bowling\Test\obj\Debug\netcoreapp3.1\Test.genruntimeconfig.cache
