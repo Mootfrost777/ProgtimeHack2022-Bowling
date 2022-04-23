@@ -121,6 +121,7 @@
             this.Controls.Add(this.NameTB);
             this.Name = "Connect";
             this.Text = "Launcher";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Connect_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

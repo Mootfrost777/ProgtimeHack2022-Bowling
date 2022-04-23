@@ -7,12 +7,13 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using NetLib;
 using System.Threading;
+using System.Text;
 
 namespace Bowling
 {
     public enum GameState
     {
-        Menu, Game, Exit, Connect_to_server, EndGame
+        Menu, Game, Exit, Connect_to_server, PauseGame, EndGame
     }
     public class Game1 : Game
     {
@@ -33,8 +34,7 @@ namespace Bowling
         private Vector2 ballStartPosition;
         private List<Classes.UI.Label> tableLabels;
         private int intermediateScore;
-        private Classes.UI.Label lblCountP1;
-        private Classes.UI.Label lblCountP2;
+        private int counter;
 
 
         private List<Pin> pins = new List<Pin>();
@@ -52,6 +52,7 @@ namespace Bowling
             _graphics.PreferredBackBufferHeight = 1000;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            Window.Title = "Bowling";
         }
 
         protected override void Initialize()
@@ -70,6 +71,7 @@ namespace Bowling
             tableMarginLeft = 20;
             tableLabels = new List<Classes.UI.Label>();
             intermediateScore = 0;
+            counter = 0;
 
             base.Initialize();
         }
@@ -125,12 +127,34 @@ namespace Bowling
                         {
                             while (true)
                             {
-                                player2.Deserialize(NetLib.NetLib.Receive());
+                                string msg = NetLib.NetLib.Receive();
+                                if (msg == "11")
+                                {
+                                    ResetAll();
+                                    break;
+                                }
+                                else
+                                {
+                                    player2.Deserialize(msg);
+                                }
                             }
                         });
                         thread.Start();
                     }
-                    else { gameState = GameState.Menu; }
+                    else { gameState = GameState.Exit; }
+                    break;
+                case GameState.EndGame:
+                    counter++;
+                    if (counter >= 300)
+                    {
+                        gameState = GameState.Menu;
+                        NetLib.NetLib.Send("11");
+                        counter = 0;
+                    }
+                    break;
+                case GameState.PauseGame:
+                    if (player2.Score.Count == 21 || (player2.Score.Count == 20 && player2.Score[18] + player2.Score[19] != 10)) gameState = GameState.EndGame;
+                    if (tableLabels.Count >= 77) gameState = GameState.EndGame;
                     break;
             }
             base.Update(gameTime);
@@ -161,8 +185,22 @@ namespace Bowling
                 case GameState.Menu:
                     menu.Draw(_spriteBatch);
                     break;
+                case GameState.EndGame:
+                    DrawGrid();
+                    foreach (Classes.UI.Label lbl in tableLabels)
+                    {
+                        lbl.Draw(_spriteBatch);
+                    }
+                    break;
+                case GameState.PauseGame:
+                    DrawGrid();
+                    foreach (Classes.UI.Label lbl in tableLabels)
+                    {
+                        lbl.Draw(_spriteBatch);
+                    }
+                    break;
             }
-            
+
             base.Draw(gameTime);
             _spriteBatch.End();
         }
@@ -190,9 +228,10 @@ namespace Bowling
                 {
                     if (player1.Score[18] + player1.Score[19] == 10) NewMove();
                 }
-                if (player1.Score.Count == 20 && player1.Score[18] + player1.Score[19] != 10)
+                if (player1.Score.Count == 21 || (player1.Score.Count == 20 && player1.Score[18] + player1.Score[19] != 10))
                 {
-                    gameState = GameState.EndGame;
+                    gameState = GameState.PauseGame;
+                    if (player2.Score.Count == 21 || (player2.Score.Count == 20 && player2.Score[18] + player2.Score[19] != 10)) gameState = GameState.EndGame;
                 }
                 SendPlayerData(player1);
             }
@@ -250,8 +289,9 @@ namespace Bowling
                 if (i % 2 == 0) score = 0;
                 else if (i == 1) score = Sum(player1.Score);
                 else score = Sum(player2.Score);
-                Classes.UI.Label lbl = new Classes.UI.Label(score.ToString(), new Vector2(tableMarginLeft + rowWidth * 12 + rowWidth / 2, tableMarginTop + countRows + rowHeight + 5),
+                Classes.UI.Label lbl = new Classes.UI.Label(score.ToString(), new Vector2(tableMarginLeft + rowWidth * 12 + rowWidth / 2 - 15, tableMarginTop + countRows + rowHeight + ((i % 2 == 1) ? 15 : 5)),
                     Color.Fuchsia);
+                if (i % 2 == 1) lbl.FontName = "gameFont2";
                 lbl.LoadContent(Content);
                 tableLabels.Add(lbl);
                 countRows += (i != 0 && i % 2 == 1) ? 2 * rowHeight : rowHeight;
@@ -274,6 +314,14 @@ namespace Bowling
                 lbl.LoadContent(Content);
                 tableLabels.Add(lbl);
             }
+            Classes.UI.Label label_p1_name = new Classes.UI.Label(player1.Name[0].ToString(), new Vector2(tableMarginLeft + 2, tableMarginTop + rowHeight),
+                Color.Red);
+            label_p1_name.LoadContent(Content);
+            tableLabels.Add(label_p1_name);
+
+            Classes.UI.Label label_p2_name = new Classes.UI.Label(player2.Name[0].ToString(), new Vector2(tableMarginLeft + 2, tableMarginTop + 4 * rowHeight), Color.Red);
+            label_p2_name.LoadContent(Content);
+            tableLabels.Add(label_p2_name);
         }
 
         private void NewMove()
@@ -295,6 +343,24 @@ namespace Bowling
         private void SendPlayerData(Player player)
         {
             NetLib.NetLib.Send(player.Serialize());
+        }
+
+        private void ResetAll()
+        {
+            ball = new Ball(ballStartPosition, Vector2.Zero, Color.Blue, Gutter_top_y, gutter_bottom_y, gutter_height, _graphics.PreferredBackBufferWidth);
+            menu = new Menu();
+            player2 = new Player();
+            player1 = new Player();
+            rowWidth = 80;
+            rowHeight = 50;
+            tableMarginTop = 20;
+            tableMarginLeft = 20;
+            tableLabels = new List<Classes.UI.Label>();
+            intermediateScore = 0;
+            counter = 0;
+            gameState = GameState.Menu;
+            pins.Clear();
+            LoadContent();
         }
     }
 }

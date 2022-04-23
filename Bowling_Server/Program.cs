@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Bowling_Server.Classes;
+using System;
 using System.Collections.Generic;
-using Bowling_Server.Classes;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
-using NetLib;
 using System.Text;
+using System.Threading;
 
 namespace Bowling_Server
 {
@@ -99,20 +98,39 @@ namespace Bowling_Server
                         {
                             int dataLength = player.socket.Receive(data);
                             string json = Encoding.ASCII.GetString(data, 0, dataLength);
+                            if (json.Contains("11"))
+                            {
+                                foreach (var player in group)
+                                {
+                                    player.socket.Send(Encoding.ASCII.GetBytes("11"));
+                                    player.Score = new List<int>();
+                                    players.Add(player);
+                                }
+                                break;
+                            }
                             player.Deserialize(json);
                             CastOpponents(group);
                         }
                     }
                     catch
                     {
-                        Console.WriteLine("Player disconnected");
-                        if (group.IndexOf(player) == 1)
+                        try
                         {
-                            players.Add(group[0]);
+                            Console.WriteLine("Player disconnected");
+                            if (group.IndexOf(player) == 1)
+                            {
+                                group[0].socket.Send(Encoding.ASCII.GetBytes("11"));
+                                players.Add(group[0]);
+                            }
+                            else
+                            {
+                                group[1].socket.Send(Encoding.ASCII.GetBytes("11"));
+                                players.Add(group[1]);
+                            }
                         }
-                        else
+                        catch
                         {
-                            players.Add(group[1]);
+                            Console.WriteLine("Players disconnected. Can't process disconnection. Game ended.");
                         }
                     }
                 });

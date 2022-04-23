@@ -12,7 +12,7 @@ namespace Bowling_Server.Classes
         public string Name { get; set; }
 
         [JsonProperty("score")]
-        public List<int> Score { get; set; }
+        public List<int> Score { get; set; } = new List<int>();
 
         [NonSerialized]
         public Socket socket;

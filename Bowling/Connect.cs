@@ -39,5 +39,9 @@ namespace Bowling
         private void ExitBtn_Click(object sender, EventArgs e)
         {
         }
+
+        private void Connect_FormClosing(object sender, FormClosingEventArgs e)
+        {
+        }
     }
 }

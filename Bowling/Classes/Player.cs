@@ -14,9 +14,9 @@ namespace Bowling.Classes
         public string Name { get; set; }
 
         [JsonProperty("score")]
-        public List<int> Score { get; set; }
+        public List<int> Score { get; set; } = new List<int>();
 
-        
+
         public string Serialize()
         {
             return JsonConvert.SerializeObject(this);
