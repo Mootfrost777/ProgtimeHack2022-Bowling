@@ -62,7 +62,7 @@ namespace Bowling_Server
             IPEndPoint ipe = new IPEndPoint(ip, port);
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             socket.Bind(ipe);
-            socket.Listen(2);
+            socket.Listen(100);
         }
         public static void Send(string message, Socket client)
         {
