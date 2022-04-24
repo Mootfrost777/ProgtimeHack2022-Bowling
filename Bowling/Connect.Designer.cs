@@ -44,6 +44,7 @@
             this.NameTB.Name = "NameTB";
             this.NameTB.Size = new System.Drawing.Size(224, 27);
             this.NameTB.TabIndex = 0;
+            this.NameTB.Text = "test";
             // 
             // IPTB
             // 
@@ -51,6 +52,7 @@
             this.IPTB.Name = "IPTB";
             this.IPTB.Size = new System.Drawing.Size(224, 27);
             this.IPTB.TabIndex = 1;
+            this.IPTB.Text = "127.0.0.1";
             // 
             // PortTB
             // 
@@ -58,6 +60,7 @@
             this.PortTB.Name = "PortTB";
             this.PortTB.Size = new System.Drawing.Size(224, 27);
             this.PortTB.TabIndex = 2;
+            this.PortTB.Text = "7632";
             // 
             // label1
             // 

@@ -32,7 +32,7 @@ namespace Bowling_Server
                         }
                         StartGame(group);
                     }
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                 }
             });
             matchmakingThread.Start();
@@ -83,7 +83,7 @@ namespace Bowling_Server
 
         static void StartGame(List<Player> group)
         {
-            
+
             Console.WriteLine("OK");
             CastOpponents(group);
             foreach (var player in group)
@@ -100,12 +100,12 @@ namespace Bowling_Server
                             string json = Encoding.ASCII.GetString(data, 0, dataLength);
                             if (json == "11")
                             {
-                                //foreach (var player in group)
-                                //{
-                                    player.socket.Send(Encoding.ASCII.GetBytes("11"));
-                                    player.Score = new List<int>();
-                                    players.Add(player);
-                                //}
+                                foreach (var player in group)
+                                {
+                                player.socket.Send(Encoding.ASCII.GetBytes("11"));
+                                player.Score = new List<int>();
+                                players.Add(player);
+                                }
                                 break;
                             }
                             player.Deserialize(json);
@@ -120,11 +120,13 @@ namespace Bowling_Server
                             if (group.IndexOf(player) == 1)
                             {
                                 group[0].socket.Send(Encoding.ASCII.GetBytes("11"));
+                                group[0].Score = new List<int>();
                                 players.Add(group[0]);
                             }
                             else
                             {
                                 group[1].socket.Send(Encoding.ASCII.GetBytes("11"));
+                                group[1].Score = new List<int>();
                                 players.Add(group[1]);
                             }
                         }
@@ -136,6 +138,10 @@ namespace Bowling_Server
                 });
                 thread.Start();
             }
+        }
+        public void Die()
+        {
+            
         }
     }
 }

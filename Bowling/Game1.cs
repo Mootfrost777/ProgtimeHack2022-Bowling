@@ -93,7 +93,7 @@ namespace Bowling
             {
                 for (int j = 0; j < count; j++)
                 {
-                    pins.Add(new Pin(keggle_texture, new Vector2(_graphics.PreferredBackBufferWidth - 150 * modifier + i * keggle_texture.Width * modifier, j * keggle_texture.Height * modifier + gutter_top_y - keggle_texture.Height * count / 2 * modifier + keggle_texture.Height * 5 + 30)));
+                    pins.Add(new Pin(keggle_texture, new Vector2(_graphics.PreferredBackBufferWidth - 150 * modifier + i * keggle_texture.Width * modifier, j * keggle_texture.Height * modifier + gutter_top_y - keggle_texture.Height * count / 2 * modifier + keggle_texture.Height * 5 + 40)));
                 }
                 count += 1;
             }
@@ -123,7 +123,7 @@ namespace Bowling
                     if (connect.ShowDialog() == DialogResult.OK)
                     {
                         gameState = GameState.Menu;
-                        player1 = new Player() { Name = connect.Name, Score = new List<int>() };
+                        player1 = new Player() { Name = connect.name, Score = new List<int>() };
                         NetLib.NetLib.IP = connect.IP;
                         NetLib.NetLib.port = connect.Port;
                         NetLib.NetLib.Connect();
@@ -153,8 +153,8 @@ namespace Bowling
                     if (counter >= 300)
                     {
                         gameState = GameState.Menu;
-                        NetLib.NetLib.Send("11");
                         counter = 0;
+                        NetLib.NetLib.Send("11");
                     }
                     break;
                 case GameState.PauseGame:
