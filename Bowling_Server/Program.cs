@@ -47,7 +47,7 @@ namespace Bowling_Server
                     string json = Encoding.ASCII.GetString(data, 0, recv);
                     Player player = new Player();
                     player.Deserialize(json);
-                    player.socket = client;
+                    player.Socket = client;
                     players.Add(player);
                 });
                 thread.Start();
@@ -64,8 +64,12 @@ namespace Bowling_Server
         }
         public static void Send(string message, Socket client)
         {
-            byte[] data = Encoding.ASCII.GetBytes(message);
-            client.Send(data);
+            try
+            {
+                byte[] data = Encoding.ASCII.GetBytes(message);
+                client.Send(data);
+            }
+            catch { }
         }
         static void CastOpponents(List<Player> group)
         {
@@ -75,7 +79,7 @@ namespace Bowling_Server
                 {
                     if (opponent != player)
                     {
-                        Send(opponent.Serialize(), player.socket);
+                        Send(opponent.Serialize(), player.Socket);
                     }
                 }
             }
@@ -91,20 +95,20 @@ namespace Bowling_Server
                 Thread thread = new Thread(() =>
                 {
                     byte[] data = new byte[1024];
-                    player.socket.ReceiveTimeout = 60000;
+                    player.Socket.ReceiveTimeout = 60000;
                     try
                     {
                         while (true)
                         {
-                            int dataLength = player.socket.Receive(data);
+                            int dataLength = player.Socket.Receive(data);
                             string json = Encoding.ASCII.GetString(data, 0, dataLength);
                             if (json == "11")
                             {
                                 foreach (var player in group)
                                 {
-                                player.socket.Send(Encoding.ASCII.GetBytes("11"));
-                                player.Score = new List<int>();
-                                players.Add(player);
+                                    player.Socket.Send(Encoding.ASCII.GetBytes("11"));
+                                    player.Score = new List<int>();
+                                    players.Add(player);
                                 }
                                 break;
                             }
@@ -119,18 +123,20 @@ namespace Bowling_Server
                             Console.WriteLine("Player disconnected");
                             if (group.IndexOf(player) == 1)
                             {
-                                group[0].socket.Send(Encoding.ASCII.GetBytes("11"));
+                                group[1].Socket.Send(Encoding.ASCII.GetBytes("12"));
+                                group[0].Socket.Send(Encoding.ASCII.GetBytes("11"));
                                 group[0].Score = new List<int>();
                                 players.Add(group[0]);
                             }
                             else
                             {
-                                group[1].socket.Send(Encoding.ASCII.GetBytes("11"));
+                                group[0].Socket.Send(Encoding.ASCII.GetBytes("12"));
+                                group[1].Socket.Send(Encoding.ASCII.GetBytes("11"));
                                 group[1].Score = new List<int>();
                                 players.Add(group[1]);
                             }
                         }
-                        catch
+                        catch (Exception e)
                         {
                             Console.WriteLine("Players disconnected. Can't process disconnection. Game ended.");
                         }
@@ -138,10 +144,6 @@ namespace Bowling_Server
                 });
                 thread.Start();
             }
-        }
-        public void Die()
-        {
-            
         }
     }
 }

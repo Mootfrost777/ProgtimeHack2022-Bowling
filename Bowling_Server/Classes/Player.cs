@@ -7,17 +7,17 @@ namespace Bowling_Server.Classes
 {
     [Serializable]
     internal class Player
-    { 
+    {
         [JsonProperty("name")]
         public string Name { get; set; }
 
         [JsonProperty("score")]
-        public List<int> Score { get; set; } = new List<int>();
+        public List<int> Score { get; set; }
 
         [NonSerialized]
-        public Socket socket;
-        
-        
+        public Socket Socket;
+
+
         public string Serialize()
         {
             return JsonConvert.SerializeObject(this);

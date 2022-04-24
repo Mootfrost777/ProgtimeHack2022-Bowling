@@ -18,7 +18,7 @@ namespace Bowling
     }
     public class Game1 : Game
     {
-        private Color[] colors = { Color.White, Color.Red, Color.Black, Color.DeepSkyBlue, Color.DeepPink };
+        private Color[] colors = { Color.White/*, Color.Red, Color.Black, Color.DeepSkyBlue, Color.DeepPink*/ };
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private static int gutter_height;
@@ -67,7 +67,7 @@ namespace Bowling
             gutter_height = 50;
             ballStartPosition = new Vector2(10, gutter_top_y + (gutter_bottom_y - gutter_top_y) / 2 - 25);
             random = new Random();
-            ball = new Ball(ballStartPosition, Vector2.Zero, colors[random.Next(colors.Length)], Gutter_top_y, gutter_bottom_y, gutter_height, _graphics.PreferredBackBufferWidth);
+            ball = new Ball(ballStartPosition, Vector2.Zero, Color.White, Gutter_top_y, gutter_bottom_y, gutter_height, _graphics.PreferredBackBufferWidth);
             menu = new Menu();
             player2 = new Player();
             rowWidth = 80;
@@ -137,6 +137,10 @@ namespace Bowling
                                 if (msg == "11")
                                 {
                                     ResetAll();
+                                }
+                                else if (msg == "12")
+                                {
+                                    Exit();
                                 }
                                 else
                                 {
@@ -224,7 +228,7 @@ namespace Bowling
             {
                 player1.Score.Add(intermediateScore);
                 intermediateScore = 0;
-                ball = new Ball(ballStartPosition, Vector2.Zero, Color.Blue, Gutter_top_y, gutter_bottom_y, gutter_height, _graphics.PreferredBackBufferWidth);
+                ball = new Ball(ballStartPosition, Vector2.Zero, Color.White, Gutter_top_y, gutter_bottom_y, gutter_height, _graphics.PreferredBackBufferWidth);
                 ball.LoadContent(Content);
                 if (player1.Score.Count <= 20 && player1.Score.Count % 2 == 0)
                 {
@@ -357,7 +361,7 @@ namespace Bowling
 
         private void ResetAll()
         {
-            ball = new Ball(ballStartPosition, Vector2.Zero, Color.Blue, Gutter_top_y, gutter_bottom_y, gutter_height, _graphics.PreferredBackBufferWidth);
+            ball = new Ball(ballStartPosition, Vector2.Zero, Color.White, Gutter_top_y, gutter_bottom_y, gutter_height, _graphics.PreferredBackBufferWidth);
             menu = new Menu();
             player1.Score.Clear();
             player2.Score.Clear();
